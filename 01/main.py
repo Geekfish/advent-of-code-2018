@@ -18,9 +18,9 @@ def test_calculate_frequency_single_subtraction():
     (
         (("+10", "-2"), 8),
         (("+10", "-2", "-10", "-8", "+1", "+1000"), 991),
-        (("0", ), 0),
+        (("0",), 0),
         (("0", "+1", "-1", "+0"), 0),
-    )
+    ),
 )
 def test_calculate_frequency_many_lines(operations, result):
     assert calculate_frequency(operations) == result
@@ -32,5 +32,5 @@ def main():
     print(calculate_frequency(operations))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

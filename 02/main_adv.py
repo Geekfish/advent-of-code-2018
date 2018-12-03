@@ -8,7 +8,8 @@ def match_identifiers(id_one, id_two):
         return None
 
     common_str = "".join(
-        _char_one for _char_one, _char_two in zip(id_one, id_two)
+        _char_one
+        for _char_one, _char_two in zip(id_one, id_two)
         if _char_one == _char_two
     )
     if len(common_str) == len(id_one) - 1:
@@ -28,16 +29,12 @@ def common_identifier(identifiers):
 @pytest.mark.parametrize(
     "identifiers,result",
     (
-            (
-                    ("abcde", "abfde"),
-                    "abde"
-            ),
-            (
-                    ("abcde", "fghij", "klmno", "pqrst", "fguij", "axcye",
-                     "wvxyz"),
-                    "fgij"
-            ),
-    )
+        (("abcde", "abfde"), "abde"),
+        (
+            ("abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"),
+            "fgij",
+        ),
+    ),
 )
 def test_find_common_identifier(identifiers, result):
     assert common_identifier(identifiers) == result
@@ -49,5 +46,5 @@ def main():
     print(common_identifier(identifiers))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

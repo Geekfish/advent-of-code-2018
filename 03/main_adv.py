@@ -35,7 +35,9 @@ def count_duplicate_claims(claims):
     individual_inches = []
     for claim in claims:
         individual_inches += get_inches_claimed(claim)
-    return sum(1 for value in Counter(individual_inches).values() if value >= 2)
+    return sum(
+        1 for value in Counter(individual_inches).values() if value >= 2
+    )
 
 
 def test_parse_claim():
@@ -53,7 +55,17 @@ def test_parse_claim():
     (
         (
             "#1 @ 1,3: 3x3",
-            ((2, 4), (2, 5), (2, 6), (3, 4), (3, 5), (3, 6), (4, 4), (4, 5), (4, 6)),
+            (
+                (2, 4),
+                (2, 5),
+                (2, 6),
+                (3, 4),
+                (3, 5),
+                (3, 6),
+                (4, 4),
+                (4, 5),
+                (4, 6),
+            ),
         ),
     ),
 )

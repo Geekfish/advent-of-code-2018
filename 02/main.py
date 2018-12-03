@@ -21,7 +21,7 @@ def checksum(identifiers):
         (("aabc", "defg"), 0),
         (("aabc", "deeefg"), 1),
         (("aabcddd", "eefg", "habbc"), 3),
-    )
+    ),
 )
 def test_find_double_frequency_many(identifiers, result):
     assert checksum(identifiers) == result
@@ -33,5 +33,5 @@ def main():
     print(checksum(identifiers))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

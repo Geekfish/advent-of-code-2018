@@ -21,9 +21,9 @@ def test_find_double_frequency_just_two():
     "operations,result",
     (
         (("+3", "+3", "+4", "-2", "-4"), 10),
-        (("-6", "+3", "+8", "+5", "-6", ), 5),
+        (("-6", "+3", "+8", "+5", "-6"), 5),
         (("+7", "+7", "-2", "-7", "-4"), 14),
-    )
+    ),
 )
 def test_find_double_frequency_many(operations, result):
     assert find_double_frequency(operations) == result
@@ -35,5 +35,5 @@ def main():
     print(find_double_frequency(operations))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
