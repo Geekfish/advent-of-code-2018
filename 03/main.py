@@ -1,16 +1,21 @@
 import re
 from collections import Counter
+from typing import Dict, List, Tuple
 
 import pytest
 
+Inch = Tuple[int, int]
+Inches = List[Inch]
 
 pattern = re.compile(
     r"#\d+ @ (?P<x>\d+),(?P<y>\d+): (?P<width>\d+)x(?P<height>\d+)"
 )
 
 
-def parse_claim(raw_claim):
+def parse_claim(raw_claim: str) -> Dict[str, int]:
     match = pattern.match(raw_claim)
+    if not match:
+        raise ValueError(f"Could not parse '{raw_claim}'")
     return {
         "x": int(match.group("x")),
         "y": int(match.group("y")),
@@ -19,7 +24,7 @@ def parse_claim(raw_claim):
     }
 
 
-def get_inches_claimed(raw_claim):
+def get_inches_claimed(raw_claim: str) -> Inches:
     claim = parse_claim(raw_claim)
     starting_x = claim["x"] + 1
     starting_y = claim["y"] + 1
@@ -30,8 +35,8 @@ def get_inches_claimed(raw_claim):
     ]
 
 
-def count_duplicate_claims(claims):
-    individual_inches = []
+def count_duplicate_claims(claims: str) -> int:
+    individual_inches: Inches = []
     for claim in claims:
         individual_inches += get_inches_claimed(claim)
     return sum(

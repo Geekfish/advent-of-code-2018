@@ -1,7 +1,13 @@
 import re
 from collections import Counter
+from typing import List, Tuple, Dict
 
 import pytest
+
+Inch = Tuple[int, int]
+Inches = List[Inch]
+
+claim_cache: Dict[str, Inches] = {}
 
 
 pattern = re.compile(
@@ -9,8 +15,10 @@ pattern = re.compile(
 )
 
 
-def parse_claim(raw_claim):
+def parse_claim(raw_claim: str) -> Dict[str, int]:
     match = pattern.match(raw_claim)
+    if not match:
+        raise ValueError(f"Could not parse '{raw_claim}'")
     return {
         "id": int(match.group("id")),
         "x": int(match.group("x")),
@@ -20,7 +28,15 @@ def parse_claim(raw_claim):
     }
 
 
-def get_inches_claimed(raw_claim):
+def get_inches_claimed(raw_claim: str) -> Inches:
+    result = claim_cache.get(raw_claim)
+    if not result:
+        result = _get_inches_claimed(raw_claim)
+        claim_cache[raw_claim] = result
+    return result
+
+
+def _get_inches_claimed(raw_claim: str) -> Inches:
     claim = parse_claim(raw_claim)
     starting_x = claim["x"] + 1
     starting_y = claim["y"] + 1
@@ -31,8 +47,8 @@ def get_inches_claimed(raw_claim):
     ]
 
 
-def count_duplicate_claims(claims):
-    individual_inches = []
+def count_duplicate_claims(claims: str) -> int:
+    individual_inches: Inches = []
     for claim in claims:
         individual_inches += get_inches_claimed(claim)
     return sum(
