@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Sequence
 
 import pytest
 
@@ -47,7 +47,7 @@ def _get_inches_claimed(raw_claim: str) -> Inches:
     ]
 
 
-def count_duplicate_claims(claims: str) -> int:
+def count_duplicate_claims(claims: Sequence[str]) -> int:
     individual_inches: Inches = []
     for claim in claims:
         individual_inches += get_inches_claimed(claim)
